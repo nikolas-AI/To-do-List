@@ -94,17 +94,40 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
     <script>
-        add = document.getElementById("add");
-        add.addEventListener("click", () =>{
+        function updateList() {
+
             console.log("Item added");
             tit = document.getElementById('title').value;
             desc = document.getElementById('description').value;
-            if (localStorage.getItem('itemJson')) {
-                itemsJasonArray = [];
-                itemsJasonArray.push([tit, desc])
-                localStorage.setItem('itemsJson', Json.stringify(itemsJasonArray))
+            if  (localStorage.getItem('itemJson') == null ) {
+                itemJsonArray = [];
+                itemJsonArray.push([tit, desc]);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
             }
-        })
+            else {
+                    itemJsonArrayStr = localStorage.getItem('itemsJson');
+                    itemJsonArray = JSON.parse(itemsJsonArrayStr);
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+    
+            let tableBody = document.getElementById("tableBody");
+            let str = "";
+            itemsJsonArray.forEach((element, index) => {
+                str += `
+                <tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${element[0]}</td>
+                    <td>${element[1]}</td> 
+                    <td><button class="btn btn-sm btn-danger">Delete</button></td> 
+                </tr>`
+            });
+            tableBody.innerHTML = str;
+            
+        }
+        add = document.getElementById("add");
+        add.addEventListener("click", updateList);
+        // updateList();
     </script>
   </body>
 </html>
