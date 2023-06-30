@@ -93,5 +93,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script>
+        add = document.getElementById("add");
+        add.addEventListener("click", () =>{
+            console.log("Item added");
+            tit = document.getElementById('title').value;
+            desc = document.getElementById('description').value;
+            if (localStorage.getItem('itemJson')) {
+                itemsJasonArray = [];
+                itemsJasonArray.push([tit, desc])
+                localStorage.setItem('itemsJson', Json.stringify(itemsJasonArray))
+            }
+        })
+    </script>
   </body>
 </html>
