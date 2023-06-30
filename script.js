@@ -40,6 +40,7 @@ function updateList() {
     });
     tableBody.innerHTML = str;
 }
+
 add = document.getElementById("add");
 add.addEventListener("click", getAndUpdate);
 updateList();
