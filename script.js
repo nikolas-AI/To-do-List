@@ -3,33 +3,33 @@ function getAndUpdate() {
     tit = document.getElementById('title').value;
     desc = document.getElementById('description').value;
     if (localStorage.getItem('itemsJson') == null) {
-        itemJsonArray = [];
-        itemJsonArray.push([tit, desc]);
-        localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+        itemsJsonArray = [];
+        itemsJsonArray.push([tit, desc]);
+        localStorage.setItem('itemsJson', JSON.stringify(itemsJsonArray))
     }
     else {
-        itemJsonArrayStr = localStorage.getItem('itemsJson')
-        itemJsonArray = JSON.parse(itemJsonArrayStr);
-        itemJsonArray.push([tit, desc]);
-        localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+        itemsJsonArrayStr = localStorage.getItem('itemsJson')
+        itemsJsonArray = JSON.parse(itemsJsonArrayStr);
+        itemsJsonArray.push([tit, desc]);
+        localStorage.setItem('itemsJson', JSON.stringify(itemsJsonArray))
     }
     updateList();
 }
 
 function updateList() {
     if (localStorage.getItem('itemsJson') == null) {
-        itemJsonArray = [];
-        localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+        itemsJsonArray = [];
+        localStorage.setItem('itemsJson', JSON.stringify(itemsJsonArray))
     }
     else {
-        itemJsonArrayStr = localStorage.getItem('itemsJson');
-        itemJsonArray = JSON.parse(itemJsonArrayStr);
+        itemsJsonArrayStr = localStorage.getItem('itemsJson');
+        itemsJsonArray = JSON.parse(itemsJsonArrayStr);
     }
 
     // Populating the table
     let tableBody = document.getElementById("tableBody");
     let str = "";
-    itemJsonArray.forEach((element, index) => {
+    itemsJsonArray.forEach((element, index) => {
         str += `
                     <tr>
                     <th scope="row">${index + 1}</th>
@@ -47,11 +47,11 @@ updateList();
 
 function deleteTask(itemIndex) {
     console.log("Task", itemIndex, "deleted.");
-    itemJsonArrayStr = localStorage.getItem('itemsJson')
-    itemJsonArray = JSON.parse(itemJsonArrayStr);
+    itemsJsonArrayStr = localStorage.getItem('itemsJson')
+    itemsJsonArray = JSON.parse(itemsJsonArrayStr);
     // Delete itemIndex element from the array
-    itemJsonArray.splice(itemIndex, 1);
-    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
+    itemsJsonArray.splice(itemIndex, 1);
+    localStorage.setItem('itemsJson', JSON.stringify(itemsJsonArray));
     updateList();
 }
 
