@@ -37,7 +37,46 @@
     </nav>
 
     <div class="container">
-        <h2 class="text-center">To-do List</h2>
+        <h2 class="text-center my-4">To-do List</h2>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">Add an item to the list</small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+        </div>
+        
+
+        <button   id="add" class="btn btn-primary">Add to list</button>
+        <button  id="clear" class="btn btn-primary" onclick="clearStorage()">Clear list</button>
+     
+
+    <div id="items" class="my-4">
+        <h2>Your Items</h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">SNo</th>
+                <th scope="col">Item Title</th>
+                <th scope="col">Item Description</th> 
+                <th scope="col">Actions</th> 
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <th scope="row">1</th>
+                <td>Get some Coffee</td>
+                <td>You need coffee as you are a coder</td> 
+                <td><button class="btn btn-sm btn-primary">Delete</button></td> 
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
+</div>
     </div>
 
 
