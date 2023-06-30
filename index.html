@@ -94,8 +94,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
     <script>
-        function updateList() {
-
+        function getAndUpdate() {
             console.log("Item added");
             tit = document.getElementById('title').value;
             desc = document.getElementById('description').value;
@@ -110,7 +109,19 @@
                     itemJsonArray.push([tit, desc]);
                     localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
                 }
-    
+            updateList();
+        }  
+
+        function updateList() {
+            if  (localStorage.getItem('itemJson') == null ) {
+                itemJsonArray = [];
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+            }
+            else {
+                itemJsonArrayStr = localStorage.getItem('itemsJson');
+                itemJsonArray = JSON.parse(itemJsonArrayStr);
+            }
+
             let tableBody = document.getElementById("tableBody");
             let str = "";
             itemJsonArray.forEach((element, index) => {
@@ -123,16 +134,26 @@
                 </tr>`
             });
             tableBody.innerHTML = str;
-            
         }
-        
+
         add = document.getElementById("add");
-        add.addEventListener("click", updateList);
+        add.addEventListener("click", getAndUpdate);
         updateList();
+
         function deleteTask(itemIndex){
             console.log("Task", itemIndex, "deleted.")
             itemJsonArrayStr = localStorage.getItem('itemsJson');
             itemJsonArray = JSON.parse(itemJsonArrayStr);
+            itemJsonArray.splice(itemIndex, 1);
+            localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+            updateList();
+
+        }
+
+        function clearStorage() {
+            console.log('Storage cleared');
+            localStorage.clear();
+            updateList();
         }
     </script>
   </body>
