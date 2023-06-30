@@ -41,47 +41,50 @@
 
     <div class="container my-4">
         <h2 class="text-center">To-do List</h2>
-         
-            <form action="">
-                <div class="form-group">
-                    <label for="title">Task</label>
-                    <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Write the task">
-                    <small id="emailHelp" class="form-text text-muted">Add a task to the list</small>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Describe your task"></textarea>
-                </div>
-                
-                <input type="reset" value="Reset" class="btn btn-warning">
-                <button   id="add" class="btn btn-info">Add to list</button>
-                <button  id="clear" class="btn btn-info" onclick="clearStorage()">Clear list</button>
-            </form>
-         
+
+        <form action="">
+            <div class="form-group">
+                <label for="title">Task</label>
+                <input type="text" class="form-control" id="title" aria-describedby="emailHelp"
+                    placeholder="Write the task">
+                <small id="emailHelp" class="form-text text-muted">Add a task to the list</small>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" placeholder="Describe your task"></textarea>
+            </div>
+
+            <input type="reset" value="Reset" class="btn btn-warning">
+            <button id="add" class="btn btn-info">Add to list</button>
+            <button id="clear" class="btn btn-info" onclick="clearStorage()">Clear list</button>
+        </form>
+
 
         <div id="items" class="my-4">
             <h2>Your Tasks</h2>
             <table class="table">
                 <thead>
-                  <tr>
-                    <th scope="col">S.N</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Task Description</th> 
-                    <th scope="col">Actions</th> 
-                  </tr>
+                    <tr>
+                        <th scope="col">S.N</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">Task Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                 </thead>
                 <tbody id="tableBody">
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Learn Javascript</td>
-                    <td>Complete the Js course form Sololearn</td> 
-                    <td><button class="btn btn-sm btn-danger">Delete</button></td> 
-                  </tr>
-                  
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Learn Javascript</td>
+                        <td>Complete the Js course form Sololearn</td>
+                        <td><button class="btn btn-sm btn-danger">Delete</button></td>
+                    </tr>
+
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
+
+    <script src="script.js"></script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,71 +97,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-        <script>
-            function getAndUpdate(){
-                console.log("Item added");
-                tit = document.getElementById('title').value;
-                desc = document.getElementById('description').value;
-                if (localStorage.getItem('itemsJson')==null){
-                    itemJsonArray = [];
-                    itemJsonArray.push([tit, desc]);
-                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
-                }
-                else{
-                    itemJsonArrayStr = localStorage.getItem('itemsJson')
-                    itemJsonArray = JSON.parse(itemJsonArrayStr);
-                    itemJsonArray.push([tit, desc]);
-                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
-                }
-                updateList();
-            }
-
-            function updateList(){
-                if (localStorage.getItem('itemsJson')==null){
-                    itemJsonArray = []; 
-                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
-                } 
-                else{
-                    itemJsonArrayStr = localStorage.getItem('itemsJson');
-                    itemJsonArray = JSON.parse(itemJsonArrayStr); 
-                }
-
-                // Populating the table
-                let tableBody = document.getElementById("tableBody");
-                let str = "";
-                itemJsonArray.forEach((element, index) => {
-                    str += `
-                    <tr>
-                    <th scope="row">${index + 1}</th>
-                    <td>${element[0]}</td>
-                    <td>${element[1]}</td> 
-                    <td><button class="btn btn-sm btn-danger" onclick="deleteTask(${index})">Delete</button></td> 
-                    </tr>`; 
-                });
-                tableBody.innerHTML = str;
-            }
-            add = document.getElementById("add");
-            add.addEventListener("click", getAndUpdate);
-            updateList();
-
-            function deleteTask(itemIndex){
-                console.log("Task", itemIndex, "deleted.");
-                itemJsonArrayStr = localStorage.getItem('itemsJson')
-                itemJsonArray = JSON.parse(itemJsonArrayStr);
-                // Delete itemIndex element from the array
-                itemJsonArray.splice(itemIndex, 1);
-                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
-                updateList();
-            }
-
-            function clearStorage(){
-                if (confirm("Do you areally want to clear?")){
-                console.log('Storage cleared')
-                localStorage.clear();
-                updateList();
-                }
-            }
-        </script>
 </body>
 
 </html>
